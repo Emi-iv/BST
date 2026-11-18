@@ -1,0 +1,19 @@
+#Mėginiai
+samples:
+  - SRR1039508
+  - SRR1039509
+  - SRR1039512
+  - SRR1039514
+
+#Kur neapdoroti FASTQ (R1 ir R2)
+raw_dir: data/raw
+
+#Referentinis
+genome: reference/GRCh38.primary_assembly.genome.fa
+gtf: reference/gencode.v50.primary_assembly.annotation.gtf
+transcriptome: reference/gencode.v50.transcripts.fa
+
+#Params
+trim_quality: 20
+trim_minlen: 20
+
