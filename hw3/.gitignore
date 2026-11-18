@@ -1,1 +1,27 @@
+#Sekoskaitos duomenys
+data/
+sra/
+*.fastq
+*.fastq.gz
+*.fq.gz
+*.sra
+
+#Referentiniai ir indeksai
+reference/
 *.fasta
+*.fa
+*.fa.gz
+
+#Rezultatai ir tarpiniai
+results/
+*.bam
+*.bai
+*.sam
+
+#Log
+logs/
+
+#Snakemake ir Conda
+.snakemake/
+.conda/
+

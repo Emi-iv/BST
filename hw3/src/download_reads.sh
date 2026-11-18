@@ -1,6 +1,6 @@
 #!/bin/bash
 #Atsisiunčia FASTQ failus pagal SRR numerius iš accessions.txt
-#Paleidimas (iš ~/BST): bash src/download_reads.sh accessions.txt
+#Paleidimas (iš ~/BST/hw3): bash src/download_reads.sh accessions.txt
 
 set -euo pipefail
 ACC_FILE=${1:-accessions.txt}
@@ -22,7 +22,7 @@ while read ACC; do
 
     echo "Atsiunčiami $ACC failai"
     prefetch "$ACC" -O data/sra
-    fasterq-dump --split-files -O data/raw "data/sra/$ACC.sra"
+    fasterq-dump --split-files -O data/raw "data/sra/$ACC/$ACC.sra"
     gzip data/raw/${ACC}_*.fastq
     rm-rf "data/sra/$ACC.sra"
 
