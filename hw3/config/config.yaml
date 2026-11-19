@@ -15,5 +15,5 @@ transcriptome: reference/gencode.v50.transcripts.fa
 
 #Params
 trim_quality: 20
-trim_minlen: 20
+trim_min_length: 20
 

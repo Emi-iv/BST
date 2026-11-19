@@ -12,7 +12,7 @@ fi
 
 mkdir -p data/raw data/sra
 
-while read ACC; do
+while read -r ACC <&3 || [[ -n "$ACC" ]]; do
     [[ -z "$ACC" ]] && continue
 
     if [[ -f "data/raw/${ACC}_1.fastq.gz" && -f "data/raw/${ACC}_2.fastq.gz" ]]; then
@@ -24,6 +24,6 @@ while read ACC; do
     prefetch "$ACC" -O data/sra
     fasterq-dump --split-files -O data/raw "data/sra/$ACC/$ACC.sra"
     gzip data/raw/${ACC}_*.fastq
-    rm-rf "data/sra/$ACC.sra"
+    rm -rf "data/sra/$ACC"
 
-done < "$ACC_FILE"
+done 3< "$ACC_FILE"
