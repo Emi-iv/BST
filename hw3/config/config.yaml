@@ -18,3 +18,5 @@ trim_quality: 20
 trim_min_length: 20
 
 hisat2_index: reference/hisat2_index/GRCh38
+
+kallisto_index: reference/kallisto/transcripts.idx
