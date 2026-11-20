@@ -17,3 +17,4 @@ transcriptome: reference/gencode.v50.transcripts.fa
 trim_quality: 20
 trim_min_length: 20
 
+hisat2_index: reference/hisat2_index/GRCh38
