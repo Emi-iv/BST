@@ -6,7 +6,7 @@ samples:
   - SRR1039514
 
 #Kur neapdoroti FASTQ (R1 ir R2)
-raw_dir: data/test
+raw_dir: data/raw
 
 #Referentinis
 genome: reference/GRCh38.primary_assembly.genome.fa
