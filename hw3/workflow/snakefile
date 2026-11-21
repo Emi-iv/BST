@@ -261,7 +261,7 @@ rule rseqc_genebody_coverage:
     input:
         bam="results/mapped/{sample}.bam",
         bai="results/mapped/{sample}.bam.bai",
-        bed=config["bed"]
+        bed=config["genebody_bed"]
     output:
         "results/rseqc/{sample}.geneBodyCoverage.txt"
     log:
@@ -328,8 +328,8 @@ rule deeptools_correlation:
     shell:
         "plotCorrelation -in {input} --corMethod spearman --skipZeros "
         "--whatToPlot heatmap --plotNumbers "
-        "-o {output.png} --outFileCorMatrix {output.tab} > {log} 2>&1"
-
+        "-o {output.png} --outFileCorMatrix {output.tab} > {log} 2>&1 && "
+        "sed -i '1i #plotCorrelation --outFileCorMatrix' {output.tab}"
 #PCA
 rule deeptools_pca:
     input:
@@ -345,8 +345,8 @@ rule deeptools_pca:
     conda:
         "envs/deeptools.yaml"
     shell:
-        "plotPCA -in {input} -o {output.png} --outFileNameData {output.tab} > {log} 2>&1"
-
+        "plotPCA -in {input} -o {output.png} --outFileNameData {output.tab} > {log} 2>&1 && "
+        "sed -i '1i #plotPCA --outFileNameData' {output.tab}"
 rule multiqc:
     input:
         expand("results/fastqc/raw/{sample}_{read}_fastqc.zip", sample=SAMPLES, read=[1, 2]),
@@ -372,3 +372,21 @@ rule multiqc:
         "envs/multiqc.yaml"
     shell:
         "multiqc results logs -o results/multiqc -f > {log} 2>&1"
+
+rule genebody_bed:
+    input:
+        config["gtf"]
+    output:
+        config["genebody_bed"]
+    log:
+        "logs/gtf_to_bed/genebody_bed.log"
+    resources:
+        mem_mb=8000,
+        runtime=60
+    conda:
+        "envs/ucsc.yaml"
+    shell:
+        "grep 'Ensembl_canonical' {input} | grep 'transcript_type \"protein_coding\"' > {output}.gtf && "
+        "gtfToGenePred -genePredExt {output}.gtf {output}.genepred 2> {log} && "
+        "genePredToBed {output}.genepred {output} 2>> {log} && "
+        "rm {output}.gtf {output}.genepred"
