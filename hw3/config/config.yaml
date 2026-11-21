@@ -20,3 +20,7 @@ trim_min_length: 20
 hisat2_index: reference/hisat2_index/GRCh38
 
 kallisto_index: reference/kallisto/transcripts.idx
+
+bed: reference/gencode.v50.primary_assembly.annotation.bed
+
+genebody_bed: reference/gencode.v50.canonical_protein_coding.bed
